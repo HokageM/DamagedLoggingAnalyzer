@@ -1,6 +1,8 @@
 import argparse
-import logging
 import sys
+import pandas as pd
+
+from pathlib import Path
 
 from damagedlogginganalyzer import __version__
 
@@ -35,6 +37,16 @@ def parse_args(args):
 def main(args):
     args = parse_args(args)
     print(f"DamagedLoggingAnalyzer! Pow Pow")
+
+    statistic_csv = Path(args.csv)
+    if not statistic_csv.exists():
+        raise FileExistsError(f"{statistic_csv} does not exists!. Please enter correct Path to your CSV file!")
+
+    # Read the CSV file into a DataFrame
+    df = pd.read_csv(statistic_csv)
+
+    # Display the DataFrame
+    print(df[7:]) # The first rows are meta data.
 
 
 def run():
