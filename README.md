@@ -1,5 +1,7 @@
 # DamagedLoggingAnalyzer
-A project about an analization of a statistic of damaged logging (wood) in Germany using Python.
+A project about of analyzing a statistic of damaged logging (wood) in Germany using Python.
+
+This my individual project for the module **Research Software Engineering** in SS24.
 
 # Damaged Logging
 
@@ -36,6 +38,30 @@ Can we identify patterns or correlations that suggest effective preventive or mi
 **Economic and Ecological Impact**: 
 What might be the economic impact of these losses? 
 How might these harvesting activities due to damages impact the ecological balance and biodiversity in these forests?
+
+# Usage
+
+## Commandline
+
+```bash
+usage: damaged_logg_analyzer [-h] [--version] CSV
+
+Just a Fibonacci demonstration
+
+positional arguments:
+  CSV         Path to the CSV containing the statistic.
+
+options:
+  -h, --help  show this help message and exit
+  --version   show program's version number and exit
+
+```
+
+## Library
+
+```python
+from damagedlogginganalyzer.DamagedLoggingAnalyzer
+```
 
 # Statistic about Damaged Logging
 
