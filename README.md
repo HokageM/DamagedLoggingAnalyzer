@@ -43,7 +43,7 @@ How might these harvesting activities due to damages impact the ecological balan
 
 Total Oak and Red Oak deaths due to wind or storm over in Germany:
 
-<img src="plots/Eiche_und_Roteiche/Wind_Sturm/Insgesamt/plot.png">
+<img src="plots/Eiche_und_Roteiche/Wind__Sturm/Insgesamt">
 
 # Usage
 
