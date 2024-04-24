@@ -46,7 +46,16 @@ def main(args):
     df = pd.read_csv(statistic_csv)
 
     # Display the DataFrame
-    print(df[7:]) # The first rows are meta data.
+    print(df[7:]) # The first rows are meta data.f
+    data_df = df
+    print(data_df.keys())
+    print(data_df['Jahr'])
+
+    # finde indices of all rows that are from 2006
+    #indices = df[df['Year'] == 2006].index
+    #print(indices)
+    #print(df[df['Year'] == 2006])
+
 
 
 def run():
