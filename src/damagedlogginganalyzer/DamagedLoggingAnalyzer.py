@@ -46,7 +46,12 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
         plt.grid(True)
 
         # Save the plot as an image file
+        species = species.replace('/', '_')
+        species = species.replace(' ', '_')
         reason = reason.replace('/', '_')
+        reason = reason.replace(' ', '_')
+        origin = origin.replace('/', '_')
+        origin = origin.replace(' ', '_')
         directory_path = Path(f'plots/{species}/{reason}/{origin}')
         directory_path.mkdir(parents=True, exist_ok=True)
         file_path = directory_path / 'plot.png'
