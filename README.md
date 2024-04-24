@@ -1,4 +1,7 @@
 # DamagedLoggingAnalyzer
+
+<img src="logo/logo.jpeg" width="200">
+
 A project about of analyzing a statistic of damaged logging (wood) in Germany using Python.
 
 This my individual project for the module **Research Software Engineering** in SS24.
@@ -43,7 +46,7 @@ How might these harvesting activities due to damages impact the ecological balan
 
 Total Oak and Red Oak deaths due to wind or storm over in Germany:
 
-<img src="plots/Eiche_und_Roteiche/Wind__Sturm/Insgesamt">
+<img src="plots/Eiche_und_Roteiche/Wind__Sturm/Insgesamt/plot.png">
 
 # Usage
 
