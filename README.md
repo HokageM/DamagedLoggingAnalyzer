@@ -39,6 +39,12 @@ Can we identify patterns or correlations that suggest effective preventive or mi
 What might be the economic impact of these losses? 
 How might these harvesting activities due to damages impact the ecological balance and biodiversity in these forests?
 
+## Temporal Trends
+
+Total Oak and Red Oak deaths due to wind or storm over in Germany:
+
+<img src="plots/Eiche%20und%20Roteiche/Wind_Sturm/Insgesamt/plot.png" width="200">
+
 # Usage
 
 ## Commandline

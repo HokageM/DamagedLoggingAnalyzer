@@ -1,3 +1,4 @@
+import math
 import pandas as pd
 
 from pathlib import Path
@@ -33,6 +34,7 @@ class CSVAnalyzer:
         """
         try:
             unique_key_values = self.__csv[key].unique()
+            unique_key_values = list(filter(lambda x: x not in ['__________'], unique_key_values))
         except KeyError:
             raise KeyError(
                 f'Your CSV does not contain a column with value: {key}! Possible values are {self.__csv.keys()}')
