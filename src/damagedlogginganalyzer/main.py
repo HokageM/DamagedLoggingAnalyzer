@@ -36,7 +36,7 @@ def parse_args(args):
 
 def main(args):
     args = parse_args(args)
-    print(f"DamagedLoggingAnalyzer! Pow Pow")
+    print("DamagedLoggingAnalyzer! Pow Pow")
 
     with DamagedLoggingAnalyzer() as analyzer:
         analyzer.read_in_csv(args.csv)
