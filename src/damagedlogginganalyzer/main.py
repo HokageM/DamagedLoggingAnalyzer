@@ -1,14 +1,13 @@
 import argparse
 import sys
-import pandas as pd
 
-from pathlib import Path
-
+from damagedlogginganalyzer.DamagedLoggingAnalyzer import DamagedLoggingAnalyzer
 from damagedlogginganalyzer import __version__
 
 __author__ = "HokageM"
 __copyright__ = "HokageM"
 __license__ = "Unliscened"
+
 
 def parse_args(args):
     """Parse command line parameters
@@ -34,28 +33,14 @@ def parse_args(args):
     )
     return parser.parse_args(args)
 
+
 def main(args):
     args = parse_args(args)
     print(f"DamagedLoggingAnalyzer! Pow Pow")
 
-    statistic_csv = Path(args.csv)
-    if not statistic_csv.exists():
-        raise FileExistsError(f"{statistic_csv} does not exists!. Please enter correct Path to your CSV file!")
-
-    # Read the CSV file into a DataFrame
-    df = pd.read_csv(statistic_csv)
-
-    # Display the DataFrame
-    print(df[7:]) # The first rows are meta data.f
-    data_df = df
-    print(data_df.keys())
-    print(data_df['Jahr'])
-
-    # finde indices of all rows that are from 2006
-    #indices = df[df['Year'] == 2006].index
-    #print(indices)
-    #print(df[df['Year'] == 2006])
-
+    with DamagedLoggingAnalyzer() as analyzer:
+        analyzer.read_in_csv(args.csv)
+        analyzer.analyze()
 
 
 def run():
