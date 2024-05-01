@@ -43,48 +43,38 @@ What might be the economic impact of these losses?
 How might these harvesting activities due to damages impact the ecological balance and biodiversity in these forests?
 
 ## Temporal Trends
+**Question**:
+How has the damage-caused wood harvesting changed over the years? 
 
-Total Oak and Red Oak deaths due to wind or storm over in Germany:
+I created individual plots for the total volume of wood harvested due to different reasons (dryness, wind/storm, snow, insects, miscellaneous, total) over the years for different types of wood species.
+And additionally, I created combined plots for the different types of wood species.
+**Note:** In the following, I will only show the combined plots for the different types of wood species. The other plots can be found in the `plots` directory or can be generated with the following command:
 
-<img src="plots/Eiche_und_Roteiche/Wind__Sturm/Insgesamt/plot.png">
+```bash
+damaged_logg_analyzer statistic/DamagedLoggingWoodFixTable.csv --temporal-dependencies --out-dir path/to/output
+```
 
-Total Oak and Red Oak deaths in Germany:
+Total Oak and Red Oak deaths over the years in Germany:
 
 <img src="plots/Eiche_und_Roteiche/all_reasons/Insgesamt/plot.png">
 
-Total Beech and Hardwood deaths due to wind or storm over in Germany:
-
-<img src="plots/Buche_und_sonstiges_Laubholz/Wind__Sturm/Insgesamt/plot.png">
-
-Total Beech and Hardwood deaths in Germany:
+Total Beech and Hardwood deaths over the years in Germany:
 
 <img src="plots/Buche_und_sonstiges_Laubholz/all_reasons/Insgesamt/plot.png">
-
-Total Spruce deaths due to wind or storm over in Germany:
-
-<img src="plots/Fichte_und_Tanne_und_Douglasie_und_sonstiges_Nadelholz/Wind__Sturm/Insgesamt/plot.png">
-
-Total Spruce deaths in Germany:
+Total Spruce deaths over the years in Germany:
 
 <img src="plots/Fichte_und_Tanne_und_Douglasie_und_sonstiges_Nadelholz/all_reasons/Insgesamt/plot.png">
 
-Total Pine deaths due to wind or storm over in Germany:
-
-<img src="plots/Kiefer_und_L�rche/Wind__Sturm/Insgesamt/plot.png">
-
-Total Pine deaths in Germany:
+Total Pine deaths over the years in Germany:
 
 <img src="plots/Kiefer_und_L�rche/all_reasons/Insgesamt/plot.png">
 
 **Warning**: The dataset value for 'Insgesamt' seams incorrect.
-Total tree deaths due to wind or storm over in Germany:
-
-<img src="plots/Insgesamt/Wind__Sturm/Insgesamt/plot.png">
-
-**Warning**: The dataset value for 'Insgesamt' seams incorrect.
-Total tree deaths in Germany:
+Total tree deaths over the years in Germany:
 
 <img src="plots/Insgesamt/all_reasons/Insgesamt/plot.png">
+
+Are there increasing trends in certain types of damage like drought or insects, possibly linked to climate change?
 
 # Usage
 
