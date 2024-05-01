@@ -11,10 +11,12 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
     This class provides methods to analyze the data about damaged wood from the CSV file.
     """
 
-    def __init__(self):
+    def __init__(self, out_dir="plots"):
         super().__init__()
         self.__year_dict = {}
         self.__years = None
+
+        self.__out_dir = out_dir
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         plt.close("all")
@@ -82,7 +84,7 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
         species = species.replace(" ", "_")
         origin = origin.replace("/", "_")
         origin = origin.replace(" ", "_")
-        directory_path = Path(f"plots/{species}/all_reasons/{origin}")
+        directory_path = Path(f"{self.__out_dir}/{species}/all_reasons/{origin}")
         directory_path.mkdir(parents=True, exist_ok=True)
         file_path = directory_path / "plot.png"
 
@@ -116,7 +118,7 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
         reason = reason.replace(" ", "_")
         origin = origin.replace("/", "_")
         origin = origin.replace(" ", "_")
-        directory_path = Path(f"plots/{species}/{reason}/{origin}")
+        directory_path = Path(f"{self.__out_dir}/{species}/{reason}/{origin}")
         directory_path.mkdir(parents=True, exist_ok=True)
         file_path = directory_path / "plot.png"
         plt.savefig(file_path)

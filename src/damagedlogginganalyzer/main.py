@@ -19,7 +19,7 @@ def parse_args(args):
     Returns:
       :obj:`argparse.Namespace`: command line parameters namespace
     """
-    parser = argparse.ArgumentParser(description="Just a Fibonacci demonstration")
+    parser = argparse.ArgumentParser(description="Analyzes the data about damaged wood from the CSV file.")
     parser.add_argument(
         "--version",
         action="version",
@@ -31,6 +31,12 @@ def parse_args(args):
         action="store_true",
         help="Create plots for temporal dependencies.",
     )
+    parser.add_argument(
+        "--out-dir",
+        type=str,
+        help="Output directory for the plots.",
+        default="plots",
+    )
     return parser.parse_args(args)
 
 
@@ -38,7 +44,7 @@ def main(args):
     args = parse_args(args)
     print("DamagedLoggingAnalyzer! Pow Pow")
 
-    with DamagedLoggingAnalyzer() as analyzer:
+    with DamagedLoggingAnalyzer(args.out_dir) as analyzer:
         analyzer.read_in_csv(args.csv)
         analyzer.analyze(args.temporal_dependencies)
 

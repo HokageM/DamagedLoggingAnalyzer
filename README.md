@@ -91,23 +91,26 @@ Total tree deaths in Germany:
 ## Commandline
 
 ```bash
-usage: damaged_logg_analyzer [-h] [--version] CSV
+usage: damaged_logg_analyzer [-h] [--version] [--temporal-dependencies] [--out-dir OUT_DIR] CSV
 
-Just a Fibonacci demonstration
+Analyzes the data about damaged wood from the CSV file.
 
 positional arguments:
-  CSV         Path to the CSV containing the statistic.
+  CSV                   Path to the CSV containing the statistic.
 
 options:
-  -h, --help  show this help message and exit
-  --version   show program's version number and exit
-
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --temporal-dependencies
+                        Create plots for temporal dependencies.
+  --out-dir OUT_DIR     Output directory for the plots.
 ```
 
 ## Library
 
 ```python
-from damagedlogginganalyzer.DamagedLoggingAnalyzer
+from damagedlogginganalyzer.DamagedLoggingAnalyzer import DamagedLoggingAnalyzer
+from damagedlogginganalyzer.CSVAnalyzer import CSVAnalyzer
 ```
 
 # Statistic about Damaged Logging
