@@ -25,8 +25,11 @@ def parse_args(args):
         action="version",
         version=f"DamagedLoggingAnalyzer {__version__}",
     )
+    parser.add_argument("csv", metavar="CSV", type=str, help="Path to the CSV containing the statistic.")
     parser.add_argument(
-        "csv", metavar="CSV", type=str, help="Path to the CSV containing the statistic."
+        "--temporal-dependencies",
+        action="store_true",
+        help="Create plots for temporal dependencies.",
     )
     return parser.parse_args(args)
 
@@ -37,7 +40,7 @@ def main(args):
 
     with DamagedLoggingAnalyzer() as analyzer:
         analyzer.read_in_csv(args.csv)
-        analyzer.analyze()
+        analyzer.analyze(args.temporal_dependencies)
 
 
 def run():

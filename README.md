@@ -48,6 +48,44 @@ Total Oak and Red Oak deaths due to wind or storm over in Germany:
 
 <img src="plots/Eiche_und_Roteiche/Wind__Sturm/Insgesamt/plot.png">
 
+Total Oak and Red Oak deaths in Germany:
+
+<img src="plots/Eiche_und_Roteiche/all_reasons/Insgesamt/plot.png">
+
+Total Beech and Hardwood deaths due to wind or storm over in Germany:
+
+<img src="plots/Buche_und_sonstiges_Laubholz/Wind__Sturm/Insgesamt/plot.png">
+
+Total Beech and Hardwood deaths in Germany:
+
+<img src="plots/Buche_und_sonstiges_Laubholz/all_reasons/Insgesamt/plot.png">
+
+Total Spruce deaths due to wind or storm over in Germany:
+
+<img src="plots/Fichte_und_Tanne_und_Douglasie_und_sonstiges_Nadelholz/Wind__Sturm/Insgesamt/plot.png">
+
+Total Spruce deaths in Germany:
+
+<img src="plots/Fichte_und_Tanne_und_Douglasie_und_sonstiges_Nadelholz/all_reasons/Insgesamt/plot.png">
+
+Total Pine deaths due to wind or storm over in Germany:
+
+<img src="plots/Kiefer_und_L�rche/Wind__Sturm/Insgesamt/plot.png">
+
+Total Pine deaths in Germany:
+
+<img src="plots/Kiefer_und_L�rche/all_reasons/Insgesamt/plot.png">
+
+**Warning**: The dataset value for 'Insgesamt' seams incorrect.
+Total tree deaths due to wind or storm over in Germany:
+
+<img src="plots/Insgesamt/Wind__Sturm/Insgesamt/plot.png">
+
+**Warning**: The dataset value for 'Insgesamt' seams incorrect.
+Total tree deaths in Germany:
+
+<img src="plots/Insgesamt/all_reasons/Insgesamt/plot.png">
+
 # Usage
 
 ## Commandline

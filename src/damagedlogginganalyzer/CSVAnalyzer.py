@@ -25,9 +25,7 @@ class CSVAnalyzer:
         """
         csv = Path(csv_file)
         if not csv.exists():
-            raise FileExistsError(
-                f"{csv} does not exists!. Please enter correct Path to your CSV file!"
-            )
+            raise FileExistsError(f"{csv} does not exists!. Please enter correct Path to your CSV file!")
 
         self.__csv = pd.read_csv(csv)
 
@@ -39,9 +37,7 @@ class CSVAnalyzer:
         """
         try:
             unique_key_values = self.__csv[key].unique()
-            unique_key_values = list(
-                filter(lambda x: x not in ["__________"], unique_key_values)
-            )
+            unique_key_values = list(filter(lambda x: x not in ["__________"], unique_key_values))
         except KeyError:
             raise KeyError(
                 f"Your CSV does not contain a column with value: {key}! Possible values are {self.__csv.keys()}"
