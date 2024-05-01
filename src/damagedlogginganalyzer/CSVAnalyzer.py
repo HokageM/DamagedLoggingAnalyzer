@@ -4,6 +4,10 @@ from pathlib import Path
 
 
 class CSVAnalyzer:
+    """
+    This class reads in a CSV file and provides methods to preprocess the csv data.
+    """
+
     def __init__(self):
         self.__csv = None
 
@@ -14,11 +18,11 @@ class CSVAnalyzer:
         pass
 
     def read_in_csv(self, csv_file):
-        '''
+        """
         Read in a CSV file and saves it into self.__csv.
         :param csv_file:
         :return:
-        '''
+        """
         csv = Path(csv_file)
         if not csv.exists():
             raise FileExistsError(f"{csv} does not exists!. Please enter correct Path to your CSV file!")

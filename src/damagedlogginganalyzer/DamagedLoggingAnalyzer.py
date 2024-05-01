@@ -16,9 +16,7 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
         plt.close('all')
         super().__exit__(exc_type, exc_val, exc_tb)
 
-    def analyze_temporal_dependencies(self,
-                                      species='Eiche und Roteiche',
-                                      reason='Einschlagsursache: Wind/ Sturm',
+    def analyze_temporal_dependencies(self, species='Eiche und Roteiche', reason='Einschlagsursache: Wind/ Sturm',
                                       origin='Insgesamt'):
         amounts = np.zeros(self.__year_dict.keys().__len__())
 
@@ -30,9 +28,7 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
             idx += 1
         self.plot_temporal_dependencies(amounts, species, reason, origin)
 
-    def plot_temporal_dependencies(self, amounts,
-                                   species='Eiche und Roteiche',
-                                   reason='Einschlagsursache: Wind/ Sturm',
+    def plot_temporal_dependencies(self, amounts, species='Eiche und Roteiche', reason='Einschlagsursache: Wind/ Sturm',
                                    origin='Insgesamt'):
         plt.plot(self.__years, amounts, marker='o', linestyle='-')
 
@@ -60,10 +56,10 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
         plt.show()
 
     def analyze(self):
-        '''
+        """
         Solves the question in the README.md
         :return:
-        '''
+        """
         self.__year_dict = self.get_dict_with_df_same_key_value('Jahr')
 
         self.__years = np.zeros(self.__year_dict.keys().__len__())
