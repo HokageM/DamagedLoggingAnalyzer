@@ -67,7 +67,7 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
         """
         plt.figure(figsize=(12, 10))
 
-        color_map = plt.cm.get_cmap('tab10', len(species_dict))  # Use a colormap with enough colors
+        color_map = plt.cm.get_cmap("tab10", len(species_dict))  # Use a colormap with enough colors
 
         # Iterate over each key-value pair in the dictionary
         for i, (key, data_points) in enumerate(species_dict.items()):
