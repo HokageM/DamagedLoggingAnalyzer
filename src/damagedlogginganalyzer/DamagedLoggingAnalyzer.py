@@ -100,6 +100,7 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
         :param origin:
         :return:
         """
+        plt.figure(figsize=(12, 10))
         plt.plot(self.__years, amounts, marker="o", linestyle="-")
 
         # Adding labels and title
