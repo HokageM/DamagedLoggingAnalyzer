@@ -67,10 +67,12 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
         """
         plt.figure(figsize=(12, 10))
 
+        color_map = plt.cm.get_cmap('tab10', len(species_dict))  # Use a colormap with enough colors
+
         # Iterate over each key-value pair in the dictionary
-        for key, data_points in species_dict.items():
+        for i, (key, data_points) in enumerate(species_dict.items()):
             key = key.removeprefix("Einschlagsursache: ")
-            plt.plot(self.__years, data_points, label=key)
+            plt.plot(self.__years, data_points, label=key, color=color_map(i))
 
         plt.xlabel("Jahr")
         plt.ylabel(f"Anzahl an toten {species} (1000 cbm)")
