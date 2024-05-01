@@ -46,7 +46,7 @@ How might these harvesting activities due to damages impact the ecological balan
 **Question**:
 How has the damage-caused wood harvesting changed over the years? 
 
-I created individual plots for the total volume of wood harvested due to different reasons (dryness, wind/storm, snow, insects, miscellaneous, total) over the years for different types of wood species.
+I created individual plots for the total volume of wood harvested due to different reasons (drought, wind/storm, snow, insects, miscellaneous, total) over the years for different types of wood species.
 And additionally, I created combined plots for the different types of wood species.
 **Note:** In the following, I will only show the combined plots for the different types of wood species. The other plots can be found in the `plots` directory or can be generated with the following command:
 
