@@ -20,4 +20,4 @@ jobs:
         pip install black
     - name: Analysing the code with black
       run: |
-        black $(git ls-files 'src/**.py') --quiet
+        black $(git ls-files 'src/**.py') --check -v

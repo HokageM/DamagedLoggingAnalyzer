@@ -26,10 +26,7 @@ def parse_args(args):
         version=f"DamagedLoggingAnalyzer {__version__}",
     )
     parser.add_argument(
-        "csv",
-        metavar="CSV",
-        type=str,
-        help="Path to the CSV containing the statistic."
+        "csv", metavar="CSV", type=str, help="Path to the CSV containing the statistic."
     )
     return parser.parse_args(args)
 
