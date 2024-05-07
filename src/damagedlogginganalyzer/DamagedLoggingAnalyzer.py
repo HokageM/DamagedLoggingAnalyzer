@@ -142,8 +142,8 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
         print(f"Best degree: {best_degree}")
 
         best_model, train_score, _ = self.polynomial_regression(x, y, [], [], best_degree)
-        print(f"Train R² score for the best model: {train_score}")
-        return best_model, best_degree
+        print(f"Train R² score (1 is best) for the best model: {train_score}")
+        return best_model, best_degree, train_score
 
     def predict_temporal_dependencies(self):
         x = self.__years.reshape(-1, 1)
@@ -152,21 +152,45 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
         for specie in self.__species:
             amounts[specie] = {}
             for reason in self.__reasons:
-                amounts[specie][reason] = self.collect_temporal_dependencies(specie, reason, "Insgesamt")
-
                 y = self.collect_temporal_dependencies(specie, reason, "Insgesamt")
 
-                model, degree = self.k_fold_cross_validation(x, y)
+                model, degree, train_score = self.k_fold_cross_validation(x, y)
 
                 poly_features = PolynomialFeatures(degree=degree)
                 x_poly = poly_features.fit_transform(x)
 
-                plt.plot(x, y, ".r", markersize=8, label="Samples")
-                plt.plot(x, model.predict(x_poly), linewidth=5, color="tab:blue", label="Model")
-                plt.show()
-
                 value = model.predict(poly_features.transform([[2024]]))
                 print(f"{specie}, {reason}, Insgesamt in 2024:", value)
+
+                # Save the plot as an image file
+                specie_mod = specie.replace("/", "_")
+                specie_mod = specie_mod.replace(" ", "_")
+                reason_mod = reason.removeprefix("Einschlagsursache: ")
+                reason_mod = reason_mod.replace("/", "_")
+                reason_mod = reason_mod.replace(" ", "_")
+
+                directory_path = Path(f"{self.__out_dir}/Prediction_2024/{specie_mod}/{reason_mod}/Insgesamt")
+                directory_path.mkdir(parents=True, exist_ok=True)
+                file_path = directory_path / "polynomial_reg_plot.png"
+
+                plt.figure(figsize=(10, 10))
+                plt.subplot(2, 1, 1)
+                plt.plot(x, y, ".r", markersize=8, label="Samples")
+                plt.plot(x, model.predict(x_poly), linewidth=5, color="tab:blue", label="Model")
+
+                plt.xlabel("Jahr")
+                plt.ylabel(f"Anzahl an toten {specie} durch {reason_mod} (1000 cbm)")
+                plt.title(f"Polynomial Regression ({degree}) for {specie} because of {reason_mod}")
+                plt.text(
+                    2006,
+                    -max(y),
+                    f"Best Degree (1 is best): {degree}\nModel: Training R² Error: "
+                    f"{train_score:.2f}\nPrediction 2024 {value}",
+                    fontsize=22,
+                    color="magenta",
+                )
+                plt.savefig(file_path)
+                plt.close()
 
     def plot_temporal_dependencies_from_species_dict(self, species_dict, species="", origin=""):
         """

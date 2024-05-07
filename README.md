@@ -51,37 +51,64 @@ And additionally, I created combined plots for the different types of wood speci
 **Note:** In the following, I will only show the combined plots for the different types of wood species. The other plots can be found in the `plots` directory or can be generated with the following command:
 
 ```bash
-damaged_logg_analyzer statistic/DamagedLoggingWoodFixTable.csv --temporal-dependencies --out-dir path/to/output
+damaged_logg_analyzer statistic/DamagedLoggingWoodFixTable.csv --plot-temporal-dependencies --out-dir path/to/output
 ```
 
 Total Oak and Red Oak deaths over the years in Germany:
 
-<img src="plots/Eiche_und_Roteiche/all_reasons/Insgesamt/plot.png">
+<img src="plots/Eiche_und_Roteiche/all_reasons/Insgesamt/plot.png" width="500">
 
 Total Beech and Hardwood deaths over the years in Germany:
 
-<img src="plots/Buche_und_sonstiges_Laubholz/all_reasons/Insgesamt/plot.png">
+<img src="plots/Buche_und_sonstiges_Laubholz/all_reasons/Insgesamt/plot.png" width="500">
+
 Total Spruce deaths over the years in Germany:
 
-<img src="plots/Fichte_und_Tanne_und_Douglasie_und_sonstiges_Nadelholz/all_reasons/Insgesamt/plot.png">
+<img src="plots/Fichte_und_Tanne_und_Douglasie_und_sonstiges_Nadelholz/all_reasons/Insgesamt/plot.png" width="500">
 
 Total Pine deaths over the years in Germany:
 
-<img src="plots/Kiefer_und_L�rche/all_reasons/Insgesamt/plot.png">
+<img src="plots/Kiefer_und_L�rche/all_reasons/Insgesamt/plot.png" width="500">
 
 **Warning**: The dataset value for 'Insgesamt' seams incorrect.
 Total tree deaths over the years in Germany:
 
-<img src="plots/Insgesamt/all_reasons/Insgesamt/plot.png">
+<img src="plots/Insgesamt/all_reasons/Insgesamt/plot.png" width="500">
 
+**Question**:
 Are there increasing trends in certain types of damage like drought or insects, possibly linked to climate change?
+
+**Question**:
+Prediction of the volume of wood harvested due to different causes in the year 2024:
+
+I used polynomial regression with k-fold cross validation to predict the volume of wood harvested due to different causes in the year 2024.
+**Note:** The prediction is based on the data from 2006 to 2023. All plots can be found in the `plots/prediction_2024` directory or can be generated with the following command:
+
+```bash
+damaged_logg_analyzer statistic/DamagedLoggingWoodFixTable.csv --predict --out-dir path/to/output
+```
+
+The death of all species due to "Sonsitges" (miscellaneous) can be modeled quit good with a polynomial function, e.g. for the Beech and Hardwood species group:
+
+<img src="plots/Prediction_2024/Buche_und_sonstiges_Laubholz/Sonstiges/Insgesamt/polynomial_reg_plot.png" width="500">
+
+**In some cases prediction does not make sense**, because the death do not follow a polynomial function and depend on other factors, e.g. death causes by insects:
+
+<img src="plots/Prediction_2024/Buche_und_sonstiges_Laubholz/Insekten/Insgesamt/polynomial_reg_plot.png" width="500">
+
+
+Deaths due to nature like wind/storm, snow, and drought can be modeled as linear functions, e.g. for the Beech and Hardwood species group:
+**Note**: One need to handle the outliers in the data, e.g. the death of the year 2018 for the Beech and Hardwood species group due to wind/storm.
+Those outliers come from special events like storms, which are not predictable with the current model.
+
+<img src="plots/Prediction_2024/Eiche_und_Roteiche/Wind__Sturm/Insgesamt/polynomial_reg_plot.png" width="500">
 
 # Usage
 
 ## Commandline
 
 ```bash
-usage: damaged_logg_analyzer [-h] [--version] [--temporal-dependencies] [--out-dir OUT_DIR] CSV
+usage: damaged_logg_analyzer [-h] [--version] [--plot-temporal-dependencies] [--predict] [--out-dir OUT_DIR] CSV
 
 Analyzes the data about damaged wood from the CSV file.
 
@@ -91,8 +118,9 @@ positional arguments:
 options:
   -h, --help            show this help message and exit
   --version             show program's version number and exit
-  --temporal-dependencies
+  --plot-temporal-dependencies
                         Create plots for temporal dependencies.
+  --predict             Estimates a death count function using Polynomial Regression with K-Fold Cross Validation to predict the numbers for the year 2024.
   --out-dir OUT_DIR     Output directory for the plots.
 ```
 
