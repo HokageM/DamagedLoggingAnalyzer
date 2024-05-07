@@ -27,9 +27,15 @@ def parse_args(args):
     )
     parser.add_argument("csv", metavar="CSV", type=str, help="Path to the CSV containing the statistic.")
     parser.add_argument(
-        "--temporal-dependencies",
+        "--plot-temporal-dependencies",
         action="store_true",
         help="Create plots for temporal dependencies.",
+    )
+    parser.add_argument(
+        "--predict",
+        action="store_true",
+        help="Estimates a death count function using Polynomial Regression with K-Fold Cross Validation to predict "
+        "the numbers for the year 2024.",
     )
     parser.add_argument(
         "--out-dir",
@@ -46,7 +52,7 @@ def main(args):
 
     with DamagedLoggingAnalyzer(args.out_dir) as analyzer:
         analyzer.read_in_csv(args.csv)
-        analyzer.analyze(args.temporal_dependencies)
+        analyzer.analyze(args.plot_temporal_dependencies, args.predict)
 
 
 def run():
