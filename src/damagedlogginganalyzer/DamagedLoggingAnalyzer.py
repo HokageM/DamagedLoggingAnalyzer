@@ -1,11 +1,8 @@
 import numpy as np
 
-from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.model_selection import KFold
-
 from damagedlogginganalyzer.CSVAnalyzer import CSVAnalyzer
 from damagedlogginganalyzer.Plotter import Plotter
+from damagedlogginganalyzer.WoodOracle import WoodOracle
 
 
 class DamagedLoggingAnalyzer(CSVAnalyzer):
@@ -23,7 +20,7 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
         self.__out_dir = out_dir
         self.__plotter = Plotter(out_dir)
 
-        self.__ksplits = 9
+        self.__wood_oracle = WoodOracle()
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         super().__exit__(exc_type, exc_val, exc_tb)
@@ -82,69 +79,11 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
             idx += 1
         return amounts
 
-    def polynomial_regression(self, x_train, y_train, x_test, y_test, degree):
-        """
-        Trains a polynomial regression model with the given degree.
-        :param x_train:
-        :param y_train:
-        :param x_test:
-        :param y_test:
-        :param degree:
-        :return:
-        """
-        poly_features = PolynomialFeatures(degree=degree)
-        x_train_poly = poly_features.fit_transform(x_train)
-        x_test_poly = poly_features.transform(x_test) if len(y_test) > 0 else None
-
-        model = LinearRegression()
-        model.fit(x_train_poly, y_train)
-
-        train_score = model.score(x_train_poly, y_train)
-        test_score = model.score(x_test_poly, y_test) if len(y_test) > 0 else None
-
-        return model, train_score, test_score
-
-    def k_fold_cross_validation(self, x, y):
-        """
-        Performs k-fold cross validation to find the best degree for the polynomial regression model.
-        :param x:
-        :param y:
-        :return:
-        """
-        degrees = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-
-        kf = KFold(n_splits=self.__ksplits, shuffle=True, random_state=0)
-        a_train_errors = []
-        a_test_errors = []
-        for degree in degrees:
-            train_scores = []
-            test_scores = []
-            for train_index, val_index in kf.split(x):
-                x_train, x_test = x[train_index], x[val_index]
-                y_train, y_test = y[train_index], y[val_index]
-
-                model, train_score, test_score = self.polynomial_regression(x_train, y_train, x_test, y_test, degree)
-
-                train_scores.append(train_score)
-                test_scores.append(test_score)
-
-            # Calculate average training and validation scores
-            avg_train_score = np.abs(np.mean(train_scores))
-            avg_val_score = np.abs(np.mean(test_scores))
-
-            a_train_errors.append(avg_train_score)
-            a_test_errors.append(avg_val_score)
-
-        minimum_value = np.min(a_test_errors)
-        best_degree = degrees[a_test_errors.index(minimum_value)]
-        print(f"Minimum value: {minimum_value} at index {a_test_errors.index(minimum_value)}")
-        print(f"Best degree: {best_degree}")
-
-        best_model, train_score, _ = self.polynomial_regression(x, y, [], [], best_degree)
-        print(f"Train R² score (1 is best) for the best model: {train_score}")
-        return best_model, best_degree, train_score
-
     def predict_temporal_dependencies(self):
+        """
+        Predicts the amount of damaged wood in 2024. And plots the predicted function.
+        :return:
+        """
         x = self.__years.reshape(-1, 1)
 
         amounts = {}
@@ -152,15 +91,10 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
             amounts[specie] = {}
             for reason in self.__reasons:
                 y = self.collect_temporal_dependencies(specie, reason, "Insgesamt")
-
-                model, degree, train_score = self.k_fold_cross_validation(x, y)
-
-                poly_features = PolynomialFeatures(degree=degree)
-                x_poly = poly_features.fit_transform(x)
-
-                value_2024 = model.predict(poly_features.transform([[2024]]))
-                print(f"{specie}, {reason}, Insgesamt in 2024:", value_2024)
+                train_predict, train_score, value_2024, degree = self.__wood_oracle.predict_wood_logging(
+                    x, y, specie, reason, "Insgesamt"
+                )
 
                 self.__plotter.plot_predictions(
-                    y, model.predict(x_poly), train_score, value_2024, degree, specie, reason, "Insgesamt"
+                    y, train_predict, train_score, value_2024, degree, specie, reason, "Insgesamt"
                 )

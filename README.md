@@ -130,6 +130,8 @@ options:
 from damagedlogginganalyzer.DamagedLoggingAnalyzer import DamagedLoggingAnalyzer
 from damagedlogginganalyzer.CSVAnalyzer import CSVAnalyzer
 from damagedlogginganalyzer.Plotter import Plotter
+from damagedlogginganalyzer.WoodOracle import WoodOracle
+from damagedlogginganalyzer.Oracle import Oracle
 ```
 
 # Contact Information
