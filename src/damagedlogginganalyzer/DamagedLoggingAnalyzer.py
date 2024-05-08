@@ -1,7 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
-from pathlib import Path
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.model_selection import KFold
@@ -28,7 +26,6 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
         self.__ksplits = 9
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        plt.close("all")
         super().__exit__(exc_type, exc_val, exc_tb)
 
     def analyze(self, plot_temporal_dependencies=False, predict=False):
@@ -161,35 +158,8 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
                 poly_features = PolynomialFeatures(degree=degree)
                 x_poly = poly_features.fit_transform(x)
 
-                value = model.predict(poly_features.transform([[2024]]))
-                print(f"{specie}, {reason}, Insgesamt in 2024:", value)
+                value_2024 = model.predict(poly_features.transform([[2024]]))
+                print(f"{specie}, {reason}, Insgesamt in 2024:", value_2024)
 
-                # Save the plot as an image file
-                specie_mod = specie.replace("/", "_")
-                specie_mod = specie_mod.replace(" ", "_")
-                reason_mod = reason.removeprefix("Einschlagsursache: ")
-                reason_mod = reason_mod.replace("/", "_")
-                reason_mod = reason_mod.replace(" ", "_")
-
-                directory_path = Path(f"{self.__out_dir}/Prediction_2024/{specie_mod}/{reason_mod}/Insgesamt")
-                directory_path.mkdir(parents=True, exist_ok=True)
-                file_path = directory_path / "polynomial_reg_plot.png"
-
-                plt.figure(figsize=(10, 10))
-                plt.subplot(2, 1, 1)
-                plt.plot(x, y, ".r", markersize=8, label="Samples")
-                plt.plot(x, model.predict(x_poly), linewidth=5, color="tab:blue", label="Model")
-
-                plt.xlabel("Jahr")
-                plt.ylabel(f"Anzahl an toten {specie} durch {reason_mod} (1000 cbm)")
-                plt.title(f"Polynomial Regression ({degree}) for {specie} because of {reason_mod}")
-                plt.text(
-                    2006,
-                    -max(y),
-                    f"Best Degree (1 is best): {degree}\nModel: Training R² Error: "
-                    f"{train_score:.2f}\nPrediction 2024 {value}",
-                    fontsize=22,
-                    color="magenta",
-                )
-                plt.savefig(file_path)
-                plt.close()
+                self.__plotter.plot_predictions(x_poly, y, model.predict(x_poly), train_score, value_2024, degree, specie,
+                                                reason, "Insgesamt")

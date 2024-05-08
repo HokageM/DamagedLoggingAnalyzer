@@ -90,18 +90,18 @@ damaged_logg_analyzer statistic/DamagedLoggingWoodFixTable.csv --predict --out-d
 
 The death of all species due to "Sonsitges" (miscellaneous) can be modeled quit good with a polynomial function, e.g. for the Beech and Hardwood species group:
 
-<img src="plots/Prediction_2024/Buche_und_sonstiges_Laubholz/Sonstiges/Insgesamt/polynomial_reg_plot.png" width="500">
+<img src="plots/Prediction_2024/Buche_und_sonstiges_Laubholz/Sonstiges/Insgesamt/plot.png" width="500">
 
 **In some cases prediction does not make sense**, because the death do not follow a polynomial function and depend on other factors, e.g. death causes by insects:
 
-<img src="plots/Prediction_2024/Buche_und_sonstiges_Laubholz/Insekten/Insgesamt/polynomial_reg_plot.png" width="500">
+<img src="plots/Prediction_2024/Buche_und_sonstiges_Laubholz/Insekten/Insgesamt/plot.png" width="500">
 
 
 Deaths due to nature like wind/storm, snow, and drought can be modeled as linear functions, e.g. for the Beech and Hardwood species group:
 **Note**: One need to handle the outliers in the data, e.g. the death of the year 2018 for the Beech and Hardwood species group due to wind/storm.
 Those outliers come from special events like storms, which are not predictable with the current model.
 
-<img src="plots/Prediction_2024/Eiche_und_Roteiche/Wind__Sturm/Insgesamt/polynomial_reg_plot.png" width="500">
+<img src="plots/Prediction_2024/Eiche_und_Roteiche/Wind__Sturm/Insgesamt/plot.png" width="500">
 
 # Usage
 
@@ -129,6 +129,7 @@ options:
 ```python
 from damagedlogginganalyzer.DamagedLoggingAnalyzer import DamagedLoggingAnalyzer
 from damagedlogginganalyzer.CSVAnalyzer import CSVAnalyzer
+from damagedlogginganalyzer.Plotter import Plotter
 ```
 
 # Contact Information
