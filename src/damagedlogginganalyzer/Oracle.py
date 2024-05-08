@@ -32,8 +32,7 @@ class Oracle:
                 x_train, x_test = x[train_index], x[val_index]
                 y_train, y_test = y[train_index], y[val_index]
 
-                model, train_score, test_score = self.polynomial_regression(x_train, y_train, x_test,
-                                                                            y_test, degree)
+                model, train_score, test_score = self.polynomial_regression(x_train, y_train, x_test, y_test, degree)
 
                 train_scores.append(train_score)
                 test_scores.append(test_score)
