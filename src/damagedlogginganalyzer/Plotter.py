@@ -59,14 +59,22 @@ class Plotter:
         plt.savefig(file_path)
         plt.close()
 
-    def plot_predictions(self, x, y, x_predict, train_score, value_2024, degree, species, reason, origin):
+    def plot_predictions(self, y, x_predict, train_score, value_2024, degree, species, reason, origin):
+        """
+        Plots the predictions for the damaged wood in 2024.
+        :param y:
+        :param x_predict:
+        :param train_score:
+        :param value_2024:
+        :param degree:
+        :param species:
+        :param reason:
+        :param origin:
+        :return:
+        """
         reason = reason.removeprefix("Einschlagsursache: ")
 
         species, reason, origin = self.preprocess_metadata(species, reason, origin)
-
-        directory_path = Path(f"{self.__out_dir}/Prediction_2024/{species}/{reason}/Insgesamt")
-        directory_path.mkdir(parents=True, exist_ok=True)
-        file_path = directory_path / "polynomial_reg_plot.png"
 
         plt.figure(figsize=(10, 10))
         plt.subplot(2, 1, 1)
@@ -82,7 +90,7 @@ class Plotter:
             color="magenta",
         )
 
-        self.finish_temporal_plot(species, reason, origin, "Prediction_2024")
+        self.finish_temporal_plot(species, reason, origin, Path("Prediction_2024"))
 
     def plot_temporal_dependencies_from_species_dict(self, species_dict, species="", origin=""):
         """

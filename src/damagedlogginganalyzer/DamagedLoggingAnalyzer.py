@@ -161,5 +161,6 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
                 value_2024 = model.predict(poly_features.transform([[2024]]))
                 print(f"{specie}, {reason}, Insgesamt in 2024:", value_2024)
 
-                self.__plotter.plot_predictions(x_poly, y, model.predict(x_poly), train_score, value_2024, degree, specie,
-                                                reason, "Insgesamt")
+                self.__plotter.plot_predictions(
+                    y, model.predict(x_poly), train_score, value_2024, degree, specie, reason, "Insgesamt"
+                )
