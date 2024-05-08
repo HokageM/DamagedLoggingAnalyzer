@@ -131,6 +131,13 @@ from damagedlogginganalyzer.DamagedLoggingAnalyzer import DamagedLoggingAnalyzer
 from damagedlogginganalyzer.CSVAnalyzer import CSVAnalyzer
 ```
 
+# Contact Information
+
+If you have any questions, suggestions, or concerns about this project, feel free to contact me:
+
+- **LinkedIn:** [Mike Trzaska](https://de.linkedin.com/in/mike-trzaska-b576a6201)
+- **GitHub:** [HokageM](https://github.com/HokageM)
+
 # Statistic about Damaged Logging
 
 From: [genesis.destatis](https://www-genesis.destatis.de/genesis/online?operation=abruftabelleBearbeiten&levelindex=1&levelid=1713202276894&auswahloperation=abruftabelleAuspraegungAuswaehlen&auswahlverzeichnis=ordnungsstruktur&auswahlziel=werteabruf&code=41261-0003&auswahltext=&werteabruf=starten)

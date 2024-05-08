@@ -7,6 +7,7 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.model_selection import KFold
 
 from damagedlogginganalyzer.CSVAnalyzer import CSVAnalyzer
+from damagedlogginganalyzer.Plotter import Plotter
 
 
 class DamagedLoggingAnalyzer(CSVAnalyzer):
@@ -22,6 +23,7 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
         self.__years = []
 
         self.__out_dir = out_dir
+        self.__plotter = Plotter(out_dir)
 
         self.__ksplits = 9
 
@@ -42,7 +44,7 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
         for year in self.__year_dict:
             self.__years[idx] = year
             idx += 1
-
+        self.__plotter.set_x_axis(self.__years)
         if plot_temporal_dependencies:
             self.plot_all_temporal_combinations()
 
@@ -61,9 +63,9 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
             for reason in self.__reasons:
                 # Create Single Plots
                 amounts[specie][reason] = self.collect_temporal_dependencies(specie, reason, "Insgesamt")
-                self.plot_temporal_dependencies(amounts[specie][reason], specie, reason, "Insgesamt")
+                self.__plotter.plot_temporal_dependencies(amounts[specie][reason], specie, reason, "Insgesamt")
             # Create Combined Plots
-            self.plot_temporal_dependencies_from_species_dict(amounts[specie], specie, "Insgesamt")
+            self.__plotter.plot_temporal_dependencies_from_species_dict(amounts[specie], specie, "Insgesamt")
 
     def collect_temporal_dependencies(self, species="", reason="", origin=""):
         """
@@ -191,73 +193,3 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
                 )
                 plt.savefig(file_path)
                 plt.close()
-
-    def plot_temporal_dependencies_from_species_dict(self, species_dict, species="", origin=""):
-        """
-        Plots the temporal dependencies for a specific species and origin.
-        :param species_dict:
-        :param species:
-        :param origin:
-        :return:
-        """
-        plt.figure(figsize=(12, 10))
-
-        color_map = plt.cm.get_cmap("tab10", len(species_dict))  # Use a colormap with enough colors
-
-        # Iterate over each key-value pair in the dictionary
-        for i, (key, data_points) in enumerate(species_dict.items()):
-            key = key.removeprefix("Einschlagsursache: ")
-            plt.plot(self.__years, data_points, label=key, color=color_map(i))
-
-        plt.xlabel("Jahr")
-        plt.ylabel(f"Anzahl an toten {species} (1000 cbm)")
-        plt.title(f"Anzahl an toten {species} über die Jahre")
-
-        plt.legend(title="Categories", bbox_to_anchor=(1.05, 1), loc="upper left")
-        plt.grid(True)
-        plt.tight_layout()
-
-        species = species.replace("/", "_")
-        species = species.replace(" ", "_")
-        origin = origin.replace("/", "_")
-        origin = origin.replace(" ", "_")
-        directory_path = Path(f"{self.__out_dir}/{species}/all_reasons/{origin}")
-        directory_path.mkdir(parents=True, exist_ok=True)
-        file_path = directory_path / "plot.png"
-
-        plt.savefig(file_path)
-        plt.close()
-
-    def plot_temporal_dependencies(self, amounts, species="", reason="", origin=""):
-        """
-        Plots the temporal dependencies for a specific species, reason and origin.
-        :param amounts:
-        :param species:
-        :param reason:
-        :param origin:
-        :return:
-        """
-        plt.figure(figsize=(12, 10))
-        plt.plot(self.__years, amounts, marker="o", linestyle="-")
-
-        # Adding labels and title
-        plt.xlabel("Jahr")
-        reason = reason.removeprefix("Einschlagsursache: ")
-        plt.ylabel(f"Anzahl an toten {species} durch {reason} (1000 cbm)")
-        plt.title(f"Anzahl an toten {species} durch {reason} über die Jahre")
-
-        # Display the plot
-        plt.grid(True)
-
-        # Save the plot as an image file
-        species = species.replace("/", "_")
-        species = species.replace(" ", "_")
-        reason = reason.replace("/", "_")
-        reason = reason.replace(" ", "_")
-        origin = origin.replace("/", "_")
-        origin = origin.replace(" ", "_")
-        directory_path = Path(f"{self.__out_dir}/{species}/{reason}/{origin}")
-        directory_path.mkdir(parents=True, exist_ok=True)
-        file_path = directory_path / "plot.png"
-        plt.savefig(file_path)
-        plt.close()
