@@ -86,6 +86,8 @@ But one can see a very high number of deaths due to wind/storm in the year 2006 
 
 The deaths of all species due to "Sonsitges" (miscellaneous) can be modeled quit good with a polynomial function and are increasing over the years.
 
+The total deaths of all species are increasing over the years.
+
 **Question**:
 How will the year 2024 look like in terms of the volume of wood harvested due to different causes?
 
