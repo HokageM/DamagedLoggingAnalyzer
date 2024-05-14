@@ -23,6 +23,7 @@ Here are some interesting aspects and potential questions, which could explore u
 **Temporal Trends**: 
 How has the damage-caused wood harvesting changed over the years? 
 Are there increasing trends in certain types of damage like drought or insects, possibly linked to climate change?
+How will the year 2024 look like in terms of the volume of wood harvested due to different causes?
 
 **Damage Types**: 
 Which type of damage causes the most wood harvesting? 
@@ -32,11 +33,10 @@ How do different regions or types of forests compare in their vulnerability to s
 Are there noticeable differences in wood harvesting due to damage across different forest ownership types 
 (e.g., state-owned vs. privately-owned forests)? This could reflect different management practices and their effectiveness.
 
+### Potential Questions (will not be answered in this project):
+
 **Impact of Extreme Weather**: 
 Are there particular years with exceptionally high damage that could be correlated to extreme weather events or climate anomalies?
-
-**Preventive Measures**: 
-Can we identify patterns or correlations that suggest effective preventive or mitigation strategies against certain types of damage?
 
 **Economic and Ecological Impact**: 
 What might be the economic impact of these losses? 
@@ -48,7 +48,7 @@ How has the damage-caused wood harvesting changed over the years?
 
 I created individual plots for the total volume of wood harvested due to different reasons (drought, wind/storm, snow, insects, miscellaneous, total) over the years for different types of wood species.
 And additionally, I created combined plots for the different types of wood species.
-**Note:** In the following, I will only show the combined plots for the different types of wood species. The other plots can be found in the `plots` directory or can be generated with the following command:
+**Note:** In the following, I will only show the combined plots for the different types of wood species. The other plots can be found in the [plots](https://github.com/HokageM/DamagedLoggingAnalyzer/tree/main/plots) directory or can be generated with the following command:
 
 ```bash
 damaged_logg_analyzer statistic/DamagedLoggingWoodFixTable.csv --plot-temporal-dependencies --out-dir path/to/output
@@ -78,11 +78,19 @@ Total tree deaths over the years in Germany:
 **Question**:
 Are there increasing trends in certain types of damage like drought or insects, possibly linked to climate change?
 
+All in all, the death of all species due to drought, snow, and insects can be modeled as linear (near constant) functions.
+Please look in [Prediction_2024](https://github.com/HokageM/DamagedLoggingAnalyzer/tree/main/plots/Prediction_2024) for the function estimations.
+
+The deaths of all species due to wind/storm depends on the year and fluctuate between high and low values.
+But one can see a very high number of deaths due to wind/storm in the year 2006 and 2018.
+
+The deaths of all species due to "Sonsitges" (miscellaneous) can be modeled quit good with a polynomial function and are increasing over the years.
+
 **Question**:
-Prediction of the volume of wood harvested due to different causes in the year 2024:
+How will the year 2024 look like in terms of the volume of wood harvested due to different causes?
 
 I used polynomial regression with k-fold cross validation to predict the volume of wood harvested due to different causes in the year 2024.
-**Note:** The prediction is based on the data from 2006 to 2023. All plots can be found in the `plots/prediction_2024` directory or can be generated with the following command:
+**Note:** The prediction is based on the data from 2006 to 2023. All plots can be found in the [Prediction_2024](https://github.com/HokageM/DamagedLoggingAnalyzer/tree/main/plots/Prediction_2024) directory or can be generated with the following command:
 
 ```bash
 damaged_logg_analyzer statistic/DamagedLoggingWoodFixTable.csv --predict --out-dir path/to/output
@@ -102,6 +110,19 @@ Deaths due to nature like wind/storm, snow, and drought can be modeled as linear
 Those outliers come from special events like storms, which are not predictable with the current model.
 
 <img src="plots/Prediction_2024/Eiche_und_Roteiche/Wind__Sturm/Insgesamt/plot.png" width="500">
+
+## Damage Types 
+**Question**:
+Which type of damage causes the most wood harvesting? 
+
+**Question**:
+How do different regions or types of forests compare in their vulnerability to specific damage types?
+
+## Forest Management
+**Question**:
+Are there noticeable differences in wood harvesting due to damage across different forest ownership types 
+(e.g., state-owned vs. privately-owned forests)? This could reflect different management practices and their effectiveness.
+
 
 # Usage
 
