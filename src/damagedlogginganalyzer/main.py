@@ -27,6 +27,11 @@ def parse_args(args):
     )
     parser.add_argument("csv", metavar="CSV", type=str, help="Path to the CSV containing the statistic.")
     parser.add_argument(
+        "--calculate-most-dangerous-reasons",
+        action="store_true",
+        help="Calculates the most dangerous reasons for each specie.",
+    )
+    parser.add_argument(
         "--plot-temporal-dependencies",
         action="store_true",
         help="Create plots for temporal dependencies.",
@@ -52,7 +57,7 @@ def main(args):
 
     with DamagedLoggingAnalyzer(args.out_dir) as analyzer:
         analyzer.read_in_csv(args.csv)
-        analyzer.analyze(args.plot_temporal_dependencies, args.predict)
+        analyzer.analyze(args.plot_temporal_dependencies, args.predict, args.calculate_most_dangerous_reasons)
 
 
 def run():

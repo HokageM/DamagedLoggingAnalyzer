@@ -2,9 +2,55 @@
 
 <img src="logo/logo.jpeg" width="200">
 
-A project about of analyzing a statistic of damaged logging (wood) in Germany using Python.
+A project about of analyzing a statistic of damaged logging wood in Germany using Python.
 
-This my individual project for the module **Research Software Engineering** in SS24.
+This is my individual project for the module **Research Software Engineering** in SS24.
+
+If you are only interested in the results, please jump to the section [Damaged Logging](#damaged-logging).
+
+# Installation
+
+```bash
+git clone git@github.com:HokageM/DamagedLoggingAnalyzer.git
+cd DamagedLoggingAnalyzer
+pip install .
+```
+
+# Usage
+
+## Commandline
+
+```bash
+usage: damaged_logg_analyzer [-h] [--version] [--plot-temporal-dependencies] [--predict] [--out-dir OUT_DIR] CSV
+
+Analyzes the data about damaged wood from the CSV file.
+
+positional arguments:
+  CSV                   Path to the CSV containing the statistic.
+
+options:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --plot-temporal-dependencies
+                        Create plots for temporal dependencies.
+  --predict             Estimates a death count function using Polynomial Regression with K-Fold Cross Validation to predict the numbers for the year 2024.
+  --out-dir OUT_DIR     Output directory for the plots.
+```
+
+## Library
+
+The following classes are available:
+
+```python
+from damagedlogginganalyzer.DamagedLoggingAnalyzer import DamagedLoggingAnalyzer
+from damagedlogginganalyzer.CSVAnalyzer import CSVAnalyzer
+from damagedlogginganalyzer.Plotter import Plotter
+from damagedlogginganalyzer.WoodOracle import WoodOracle
+from damagedlogginganalyzer.Oracle import Oracle
+```
+
+The classes `CSVAnalyzer`, `Plotter`, `Oracle` are independent of this project and can be used for other projects.
+Moreover, the classes `DamagedLoggingAnalyzer` and `WoodOracle` are specific for this project / data set.
 
 # Damaged Logging
 
@@ -119,6 +165,22 @@ Those outliers come from special events like storms, which are not predictable w
 **Question**:
 Which type of damage causes the most wood harvesting? 
 
+This is solved by calculating the maximum damage for each type of wood species group, which can be done with the following command:
+
+```bash
+damaged_logg_analyzer data/DamagedLoggingWoodFixTable.csv --calculate-most-dangerous-reasons
+```
+
+The maximum damage for each type of wood species group is:
+
+| Specie                                                 | Reason      | Amount |
+|--------------------------------------------------------|-------------|--------|
+| Eiche und Roteiche                                     | Wind/ Sturm | 2048   |
+| Buche und sonstiges Laubholz                           | Wind/ Sturm | 9124   |
+| Kiefer und L�rche                                      | Wind/ Sturm | 19806  |
+| Fichte und Tanne und Douglasie und sonstiges Nadelholz | Sonstiges   | 208725 |
+| Insgesamt                                              | Sonstiges   | 218181 |
+
 **Question**:
 How do different regions or types of forests compare in their vulnerability to specific damage types?
 
@@ -127,37 +189,6 @@ How do different regions or types of forests compare in their vulnerability to s
 Are there noticeable differences in wood harvesting due to damage across different forest ownership types 
 (e.g., state-owned vs. privately-owned forests)? This could reflect different management practices and their effectiveness.
 
-
-# Usage
-
-## Commandline
-
-```bash
-usage: damaged_logg_analyzer [-h] [--version] [--plot-temporal-dependencies] [--predict] [--out-dir OUT_DIR] CSV
-
-Analyzes the data about damaged wood from the CSV file.
-
-positional arguments:
-  CSV                   Path to the CSV containing the statistic.
-
-options:
-  -h, --help            show this help message and exit
-  --version             show program's version number and exit
-  --plot-temporal-dependencies
-                        Create plots for temporal dependencies.
-  --predict             Estimates a death count function using Polynomial Regression with K-Fold Cross Validation to predict the numbers for the year 2024.
-  --out-dir OUT_DIR     Output directory for the plots.
-```
-
-## Library
-
-```python
-from damagedlogginganalyzer.DamagedLoggingAnalyzer import DamagedLoggingAnalyzer
-from damagedlogginganalyzer.CSVAnalyzer import CSVAnalyzer
-from damagedlogginganalyzer.Plotter import Plotter
-from damagedlogginganalyzer.WoodOracle import WoodOracle
-from damagedlogginganalyzer.Oracle import Oracle
-```
 
 # Contact Information
 
@@ -171,3 +202,12 @@ If you have any questions, suggestions, or concerns about this project, feel fre
 From: [genesis.destatis](https://www-genesis.destatis.de/genesis/online?operation=abruftabelleBearbeiten&levelindex=1&levelid=1713202276894&auswahloperation=abruftabelleAuspraegungAuswaehlen&auswahlverzeichnis=ordnungsstruktur&auswahlziel=werteabruf&code=41261-0003&auswahltext=&werteabruf=starten)
 
 Statistic Number: 41261-0003
+
+# Citation
+
+If you use this software, please cite it as described in the [CITATION.cff](CITATION.cff) file.
+
+
+# License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

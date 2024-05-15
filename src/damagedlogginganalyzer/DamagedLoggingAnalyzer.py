@@ -25,7 +25,7 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
     def __exit__(self, exc_type, exc_val, exc_tb):
         super().__exit__(exc_type, exc_val, exc_tb)
 
-    def analyze(self, plot_temporal_dependencies=False, predict=False):
+    def analyze(self, *, plot_temporal_dependencies=False, predict_temporal_dependencies=False, calculate_most_dangerous_reasons=False):
         """
         Solves the question in the README.md
         :return:
@@ -44,9 +44,31 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
             self.plot_all_temporal_combinations()
             print(f"Plots saved in: {self.__out_dir}")
 
-        if predict:
+        if predict_temporal_dependencies:
             # Predict the amount of damaged wood in 2024
             self.predict_temporal_dependencies()
+
+        if calculate_most_dangerous_reasons:
+            self.calculate_most_dangerous_reasons()
+
+    def calculate_most_dangerous_reasons(self):
+        """
+        Calculates the most dangerous reasons for each specie.
+        :return:
+        """
+        total_amounts = {}
+        for specie in self.__species:
+            amounts = {}
+            for reason in self.__reasons:
+                if reason not in total_amounts:
+                    total_amounts[reason] = 0
+                amounts[reason] = self.collect_temporal_dependencies(specie, reason, "Insgesamt").sum()
+                total_amounts[reason] += amounts[reason]
+
+            print(f"Most dangerous reasons for {specie}:")
+            sorted_amounts = sorted(amounts.items(), key=lambda x: x[1], reverse=True)
+            for reason, value in sorted_amounts:
+                print(f"{reason}: {value}")
 
     def plot_all_temporal_combinations(self):
         """
