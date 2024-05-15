@@ -25,7 +25,13 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
     def __exit__(self, exc_type, exc_val, exc_tb):
         super().__exit__(exc_type, exc_val, exc_tb)
 
-    def analyze(self, *, plot_temporal_dependencies=False, predict_temporal_dependencies=False, calculate_most_dangerous_reasons=False):
+    def analyze(
+        self,
+        *,
+        plot_temporal_dependencies=False,
+        predict_temporal_dependencies=False,
+        calculate_most_dangerous_reasons=False,
+    ):
         """
         Solves the question in the README.md
         :return:
