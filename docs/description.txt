@@ -1,0 +1,33 @@
+What is the dataset about?
+
+- The dataset contains statistics on forest wood harvesting due to various damages in Germany,
+  listed by year, type of wood species groups, and ownership types of forests.
+
+- Each entry specifies the volume of wood harvested (in cubic meters) due to different causes
+  such as wind/storm, snow/ice damage, insects, drought, and other reasons.
+
+Why is this dataset interesting?:
+Here are some interesting aspects and potential questions, which could explore using this data:
+
+- Temporal Trends:
+  How has the damage-caused wood harvesting changed over the years?
+  Are there increasing trends in certain types of damage like drought or insects, possibly linked to climate change?
+  How will the year 2024 look like in terms of the volume of wood harvested due to different causes?
+
+- Damage Types:
+  Which type of damage causes the most wood harvesting?
+  How do different regions or types of forests compare in their vulnerability to specific damage types?
+
+- Forest Management:
+  Are there noticeable differences in wood harvesting due to damage across different forest ownership types
+  (e.g., state-owned vs. privately-owned forests)? This could reflect different management practices and their effectiveness.
+
+
+Potential Questions (will not be answered in this project):
+
+- Impact of Extreme Weather:
+  Are there particular years with exceptionally high damage that could be correlated to extreme weather events or climate anomalies?
+
+- Economic and Ecological Impact:
+  What might be the economic impact of these losses?
+  How might these harvesting activities due to damages impact the ecological balance and biodiversity in these forests?

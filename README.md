@@ -8,6 +8,8 @@ This my individual project for the module **Research Software Engineering** in S
 
 # Damaged Logging
 
+**Note:** You can optionally read the notebook [story_of_this_project.ipynb](https://github.com/HokageM/DamagedLoggingAnalyzer/tree/main/notebooks/story_of_this_project.ipynb) to have an interactive experience with the project.
+
 ## What is the dataset about?
 
 The dataset contains statistics on forest wood harvesting due to various damages in Germany,
@@ -51,7 +53,7 @@ And additionally, I created combined plots for the different types of wood speci
 **Note:** In the following, I will only show the combined plots for the different types of wood species. The other plots can be found in the [plots](https://github.com/HokageM/DamagedLoggingAnalyzer/tree/main/plots) directory or can be generated with the following command:
 
 ```bash
-damaged_logg_analyzer statistic/DamagedLoggingWoodFixTable.csv --plot-temporal-dependencies --out-dir path/to/output
+damaged_logg_analyzer data/DamagedLoggingWoodFixTable.csv --plot-temporal-dependencies --out-dir path/to/output
 ```
 
 Total Oak and Red Oak deaths over the years in Germany:
@@ -95,7 +97,7 @@ I used polynomial regression with k-fold cross validation to predict the volume 
 **Note:** The prediction is based on the data from 2006 to 2023. All plots can be found in the [Prediction_2024](https://github.com/HokageM/DamagedLoggingAnalyzer/tree/main/plots/Prediction_2024) directory or can be generated with the following command:
 
 ```bash
-damaged_logg_analyzer statistic/DamagedLoggingWoodFixTable.csv --predict --out-dir path/to/output
+damaged_logg_analyzer data/DamagedLoggingWoodFixTable.csv --predict --out-dir path/to/output
 ```
 
 The death of all species due to "Sonsitges" (miscellaneous) can be modeled quit good with a polynomial function, e.g. for the Beech and Hardwood species group:

@@ -40,7 +40,9 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
             idx += 1
         self.__plotter.set_x_axis(self.__years)
         if plot_temporal_dependencies:
+            print("Plotting Temporal Dependencies...")
             self.plot_all_temporal_combinations()
+            print(f"Plots saved in: {self.__out_dir}")
 
         if predict:
             # Predict the amount of damaged wood in 2024
