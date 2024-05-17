@@ -27,13 +27,13 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
         super().__exit__(exc_type, exc_val, exc_tb)
 
     def analyze(
-            self,
-            *,
-            plot_temporal_dependencies_specie_reason=False,
-            plot_temporal_dependencies_specie_owner=False,
-            plot_temporal_dependencies_all=False,
-            predict_temporal_dependencies=False,
-            calculate_most_dangerous_reasons=False,
+        self,
+        *,
+        plot_temporal_dependencies_specie_reason=False,
+        plot_temporal_dependencies_specie_owner=False,
+        plot_temporal_dependencies_all=False,
+        predict_temporal_dependencies=False,
+        calculate_most_dangerous_reasons=False,
     ):
         """
         Solves the question in the README.md
@@ -112,12 +112,8 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
                     specie, "Einschlagsursache: Insgesamt", owner
                 )
                 if not skip_single_plots:
-                    self.__plotter.plot_temporal_dependencies(
-                        amounts[specie][owner], specie, "Insgesamt", owner
-                    )
-            self.__plotter.plot_temporal_dependencies_from_species_owner_dict(
-                amounts[specie], specie, "Insgesamt"
-            )
+                    self.__plotter.plot_temporal_dependencies(amounts[specie][owner], specie, "Insgesamt", owner)
+            self.__plotter.plot_temporal_dependencies_from_species_owner_dict(amounts[specie], specie, "Insgesamt")
 
     def temporal_plot_all_specie_reason_combinations(self, skip_single_plots=False):
         """
