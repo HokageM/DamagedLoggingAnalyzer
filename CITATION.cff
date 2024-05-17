@@ -1,0 +1,32 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: DamagedLoggingAnalyzer
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Mike
+    family-names: Trzaska
+    email: m.trzaska663@gmail.com
+repository-code: 'https://github.com/HokageM/DamagedLoggingAnalyzer'
+abstract: >-
+  A project about of analyzing a statistic of damaged
+  logging wood in Germany using Python.
+
+
+  This is my individual project for the module Research
+  Software Engineering in SS24. The task was to analyze a
+  dataset from genesis.destatis using Python and to find
+  interesting aspects and potential questions that could be
+  explored using this data.
+keywords:
+  - csv
+  - scikit-learn
+  - pandas
+  - polynomial-regression
+license: MIT
+version: v1.0
+date-released: '2024-05-17'
