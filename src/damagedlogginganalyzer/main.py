@@ -32,9 +32,23 @@ def parse_args(args):
         help="Calculates the most dangerous reasons for each specie.",
     )
     parser.add_argument(
-        "--plot-temporal-dependencies",
+        "--plot-temporal-dependencies-specie-reason",
         action="store_true",
-        help="Create plots for temporal dependencies.",
+        help="Create plots for temporal dependencies for each specie and reason combination owned by Insgesamt."
+        "And will also create a combined plot for each specie and all reasons combinations.",
+    )
+    parser.add_argument(
+        "--plot-temporal-dependencies-specie-owner",
+        action="store_true",
+        help="Create plots for temporal dependencies for each specie and owner combination caused by Insgesamt."
+        "And will also create a combined plot for each specie and all owners combinations.",
+    )
+    parser.add_argument(
+        "--plot-temporal-dependencies-all",
+        action="store_true",
+        help="Create plots for temporal dependencies for each specie, reason and owner combination."
+        "Note: use --plot-temporal-dependencies-specie-owner and --plot-temporal-dependencies-specie-reason to "
+        "create the combined plots.",
     )
     parser.add_argument(
         "--predict",
@@ -57,7 +71,13 @@ def main(args):
 
     with DamagedLoggingAnalyzer(args.out_dir) as analyzer:
         analyzer.read_in_csv(args.csv)
-        analyzer.analyze(args.plot_temporal_dependencies, args.predict, args.calculate_most_dangerous_reasons)
+        analyzer.analyze(
+            plot_temporal_dependencies_specie_reason=args.plot_temporal_dependencies_specie_reason,
+            plot_temporal_dependencies_specie_owner=args.plot_temporal_dependencies_specie_owner,
+            plot_temporal_dependencies_all=args.plot_temporal_dependencies_all,
+            predict_temporal_dependencies=args.predict,
+            calculate_most_dangerous_reasons=args.calculate_most_dangerous_reasons,
+        )
 
 
 def run():

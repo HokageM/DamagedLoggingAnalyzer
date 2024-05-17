@@ -21,7 +21,9 @@ pip install .
 ## Commandline
 
 ```bash
-usage: damaged_logg_analyzer [-h] [--version] [--plot-temporal-dependencies] [--predict] [--out-dir OUT_DIR] CSV
+usage: damaged_logg_analyzer [-h] [--version] [--calculate-most-dangerous-reasons] [--plot-temporal-dependencies-specie-reason] [--plot-temporal-dependencies-specie-owner]
+                             [--plot-temporal-dependencies-all] [--predict] [--out-dir OUT_DIR]
+                             CSV
 
 Analyzes the data about damaged wood from the CSV file.
 
@@ -31,10 +33,20 @@ positional arguments:
 options:
   -h, --help            show this help message and exit
   --version             show program's version number and exit
-  --plot-temporal-dependencies
-                        Create plots for temporal dependencies.
+  --calculate-most-dangerous-reasons
+                        Calculates the most dangerous reasons for each specie.
+  --plot-temporal-dependencies-specie-reason
+                        Create plots for temporal dependencies for each specie and reason combination owned by Insgesamt.And will also create a combined plot for each specie and all reasons
+                        combinations.
+  --plot-temporal-dependencies-specie-owner
+                        Create plots for temporal dependencies for each specie and owner combination caused by Insgesamt.And will also create a combined plot for each specie and all owners
+                        combinations.
+  --plot-temporal-dependencies-all
+                        Create plots for temporal dependencies for each specie, reason and owner combination.Note: use --plot-temporal-dependencies-specie-owner and --plot-temporal-
+                        dependencies-specie-reason to create the combined plots.
   --predict             Estimates a death count function using Polynomial Regression with K-Fold Cross Validation to predict the numbers for the year 2024.
   --out-dir OUT_DIR     Output directory for the plots.
+
 ```
 
 ## Library
@@ -75,7 +87,7 @@ How will the year 2024 look like in terms of the volume of wood harvested due to
 
 **Damage Types**: 
 Which type of damage causes the most wood harvesting? 
-How do different regions or types of forests compare in their vulnerability to specific damage types?
+How do different types of forests compare in their vulnerability to specific damage types?
 
 **Forest Management**: 
 Are there noticeable differences in wood harvesting due to damage across different forest ownership types 
@@ -155,8 +167,9 @@ The death of all species due to "Sonsitges" (miscellaneous) can be modeled quit 
 <img src="plots/Prediction_2024/Buche_und_sonstiges_Laubholz/Insekten/Insgesamt/plot.png" width="500">
 
 
-Deaths due to nature like wind/storm, snow, and drought can be modeled as linear functions, e.g. for the Beech and Hardwood species group:
-**Note**: One need to handle the outliers in the data, e.g. the death of the year 2018 for the Beech and Hardwood species group due to wind/storm.
+Deaths due to nature like wind/storm, snow, and drought can be modeled as linear functions, e.g. for the Beech and Hardwood species group.
+**Note**: One need to handle the outliers in the data, e.g. the death of the year 2018 for the Beech and Hardwood species group due to wind/storm, 
+this can be done by using a Ridge Regression model.
 Those outliers come from special events like storms, which are not predictable with the current model.
 
 <img src="plots/Prediction_2024/Eiche_und_Roteiche/Wind__Sturm/Insgesamt/plot.png" width="500">
@@ -182,12 +195,25 @@ The maximum damage for each type of wood species group is:
 | Insgesamt                                              | Sonstiges   | 218181 |
 
 **Question**:
-How do different regions or types of forests compare in their vulnerability to specific damage types?
+How do different types of forests compare in their vulnerability to specific damage types?
+
+This is also solved by the following command:
+
+```bash
+damaged_logg_analyzer data/DamagedLoggingWoodFixTable.csv --calculate-most-dangerous-reasons
+```
+
+Analyzing the plots show that `Buche und sonstiges Laubholz` and `Eiche und Roteiche` have fewer deaths in any reason 
+compared to `Kiefer und L�rche` and `Fichte und Tanne und Douglasie und sonstiges Nadelholz`.
+The death counts are up to 10 times higher for `Kiefer und L�rche` and `Fichte und Tanne und Douglasie und sonstiges Nadelholz`
+compared to `Buche und sonstiges Laubholz` and `Eiche und Roteiche`.
 
 ## Forest Management
 **Question**:
 Are there noticeable differences in wood harvesting due to damage across different forest ownership types 
 (e.g., state-owned vs. privately-owned forests)? This could reflect different management practices and their effectiveness.
+
+
 
 
 # Contact Information

@@ -15,6 +15,7 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
         self.__year_dict = {}
         self.__species = []
         self.__reasons = []
+        self.__owners = []
         self.__years = []
 
         self.__out_dir = out_dir
@@ -26,11 +27,13 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
         super().__exit__(exc_type, exc_val, exc_tb)
 
     def analyze(
-        self,
-        *,
-        plot_temporal_dependencies=False,
-        predict_temporal_dependencies=False,
-        calculate_most_dangerous_reasons=False,
+            self,
+            *,
+            plot_temporal_dependencies_specie_reason=False,
+            plot_temporal_dependencies_specie_owner=False,
+            plot_temporal_dependencies_all=False,
+            predict_temporal_dependencies=False,
+            calculate_most_dangerous_reasons=False,
     ):
         """
         Solves the question in the README.md
@@ -39,21 +42,30 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
         self.__year_dict = self.get_dict_with_df_same_key_value("Jahr")
         self.__species = self.__year_dict[2020]["Baumart"].unique()
         self.__reasons = self.__year_dict[2020].filter(like="Einschlagsursache:").columns
+        self.__owners = self.__year_dict[2020]["Waldeigentum"].unique()
         self.__years = np.zeros(self.__year_dict.keys().__len__())
         idx = 0
         for year in self.__year_dict:
             self.__years[idx] = year
             idx += 1
         self.__plotter.set_x_axis(self.__years)
-        if plot_temporal_dependencies:
-            print("Plotting Temporal Dependencies...")
-            self.plot_all_temporal_combinations()
+        skip_single_plots = False
+        if plot_temporal_dependencies_all:
+            print("Plotting Temporal Dependencies (all specie, reason and owner combinations)...")
+            self.temporal_plot_all_combinations()
             print(f"Plots saved in: {self.__out_dir}")
-
+            skip_single_plots = True
+        if plot_temporal_dependencies_specie_reason:
+            print("Plotting Temporal Dependencies (all specie and reason combinations)...")
+            self.temporal_plot_all_specie_reason_combinations(skip_single_plots)
+            print(f"Plots saved in: {self.__out_dir}")
+        if plot_temporal_dependencies_specie_owner:
+            print("Plotting Temporal Dependencies (all specie and owner combinations)...")
+            self.temporal_plot_all_owner_specie_combinations(skip_single_plots)
+            print(f"Plots saved in: {self.__out_dir}")
         if predict_temporal_dependencies:
             # Predict the amount of damaged wood in 2024
             self.predict_temporal_dependencies()
-
         if calculate_most_dangerous_reasons:
             self.calculate_most_dangerous_reasons()
 
@@ -76,7 +88,38 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
             for reason, value in sorted_amounts:
                 print(f"{reason}: {value}")
 
-    def plot_all_temporal_combinations(self):
+    def temporal_plot_all_combinations(self):
+        """
+        Plots all temporal dependencies for each specie, reason and owner.
+        :return:
+        """
+        for specie in self.__species:
+            for reason in self.__reasons:
+                for owner in self.__owners:
+                    amounts = self.collect_temporal_dependencies(specie, reason, owner)
+                    self.__plotter.plot_temporal_dependencies(amounts, specie, reason, owner)
+
+    def temporal_plot_all_owner_specie_combinations(self, skip_single_plots=False):
+        """
+        Plots all temporal dependencies for each owner and specie.
+        :return:
+        """
+        amounts = {}
+        for specie in self.__species:
+            amounts[specie] = {}
+            for owner in self.__owners:
+                amounts[specie][owner] = self.collect_temporal_dependencies(
+                    specie, "Einschlagsursache: Insgesamt", owner
+                )
+                if not skip_single_plots:
+                    self.__plotter.plot_temporal_dependencies(
+                        amounts[specie][owner], specie, "Insgesamt", owner
+                    )
+            self.__plotter.plot_temporal_dependencies_from_species_owner_dict(
+                amounts[specie], specie, "Insgesamt"
+            )
+
+    def temporal_plot_all_specie_reason_combinations(self, skip_single_plots=False):
         """
         Plots all temporal dependencies for each species and reason.
         :return:
@@ -87,9 +130,10 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
             for reason in self.__reasons:
                 # Create Single Plots
                 amounts[specie][reason] = self.collect_temporal_dependencies(specie, reason, "Insgesamt")
-                self.__plotter.plot_temporal_dependencies(amounts[specie][reason], specie, reason, "Insgesamt")
+                if not skip_single_plots:
+                    self.__plotter.plot_temporal_dependencies(amounts[specie][reason], specie, reason, "Insgesamt")
             # Create Combined Plots
-            self.__plotter.plot_temporal_dependencies_from_species_dict(amounts[specie], specie, "Insgesamt")
+            self.__plotter.plot_temporal_dependencies_from_species_reason_dict(amounts[specie], specie, "Insgesamt")
 
     def collect_temporal_dependencies(self, species="", reason="", origin=""):
         """

@@ -46,8 +46,8 @@ class Plotter:
         :return:
         """
         plt.xlabel("Jahr")
-        plt.ylabel(f"Anzahl an toten {species} durch {reason} (1000 cbm)")
-        plt.title(f"Anzahl an toten {species} durch {reason} über die Jahre")
+        plt.ylabel(f"Anzahl an toten {species} durch {reason} besitzt bei {origin} (1000 cbm)")
+        plt.title(f"Anzahl an toten {species} durch {reason} besitzt bei {origin} über die Jahre")
 
         plt.grid(True)
 
@@ -92,9 +92,9 @@ class Plotter:
 
         self.finish_temporal_plot(species, reason, origin, Path("Prediction_2024"))
 
-    def plot_temporal_dependencies_from_species_dict(self, species_dict, species="", origin=""):
+    def plot_temporal_dependencies_from_species_reason_dict(self, species_dict, species="", origin=""):
         """
-        Plots the temporal dependencies for a specific species and origin.
+        Plots the temporal dependencies for a specific species, origin and all reasons combined.
         :param species_dict:
         :param species:
         :param origin:
@@ -115,6 +115,28 @@ class Plotter:
 
         self.finish_temporal_plot(species, "all_reasons", origin)
 
+    def plot_temporal_dependencies_from_species_owner_dict(self, species_dict, species="", reason=""):
+        """
+        Plots the temporal dependencies for a specific species, reason and all owners combined.
+        :param species_dict:
+        :param species:
+        :param reason:
+        :return:
+        """
+        plt.figure(figsize=(12, 10))
+
+        color_map = plt.cm.get_cmap("tab10", len(species_dict))  # Use a colormap with enough colors
+
+        # Iterate over each key-value pair in the dictionary
+        for i, (key, data_points) in enumerate(species_dict.items()):
+            plt.plot(self.__x, data_points, label=key, color=color_map(i))
+
+        plt.legend(title="Categories", bbox_to_anchor=(1.05, 1), loc="upper left")
+        plt.grid(True)
+        plt.tight_layout(rect=[0.05, 0.05, 0.95, 0.95])
+
+        self.finish_temporal_plot(species, reason, "all_owners")
+
     def plot_temporal_dependencies(self, amounts, species="", reason="", origin=""):
         """
         Plots the temporal dependencies for a specific species, reason and origin.
@@ -124,7 +146,7 @@ class Plotter:
         :param origin:
         :return:
         """
-        plt.figure(figsize=(12, 10))
+        plt.figure(figsize=(14, 12))
         plt.plot(self.__x, amounts, marker="o", linestyle="-")
 
         reason = reason.removeprefix("Einschlagsursache: ")
