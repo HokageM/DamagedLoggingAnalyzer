@@ -123,7 +123,8 @@ class Plotter:
         :param reason:
         :return:
         """
-        plt.figure(figsize=(12, 10))
+        print("HERE")
+        plt.figure(figsize=(18, 10))
 
         color_map = plt.cm.get_cmap("tab10", len(species_dict))  # Use a colormap with enough colors
 
@@ -134,7 +135,7 @@ class Plotter:
         plt.legend(title="Categories", bbox_to_anchor=(1.05, 1), loc="upper left")
         plt.grid(True)
         plt.tight_layout(rect=[0.05, 0.05, 0.95, 0.95])
-
+        print(species, reason, "all_owners")
         self.finish_temporal_plot(species, reason, "all_owners")
 
     def plot_temporal_dependencies(self, amounts, species="", reason="", origin=""):
