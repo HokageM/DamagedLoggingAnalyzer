@@ -10,15 +10,6 @@ __license__ = "Unliscened"
 
 
 def parse_args(args):
-    """Parse command line parameters
-
-    Args:
-      args (List[str]): command line parameters as list of strings
-          (for example  ``["--help"]``).
-
-    Returns:
-      :obj:`argparse.Namespace`: command line parameters namespace
-    """
     parser = argparse.ArgumentParser(description="Analyzes the data about damaged wood from the CSV file.")
     parser.add_argument(
         "--version",

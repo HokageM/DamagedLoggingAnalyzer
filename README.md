@@ -5,6 +5,8 @@
 A project about of analyzing a statistic of damaged logging wood in Germany using Python.
 
 This is my individual project for the module **Research Software Engineering** in SS24.
+The task was to analyze a dataset from [genesis.destatis](https://www-genesis.destatis.de/genesis/online?operation=abruftabelleBearbeiten&levelindex=1&levelid=1713202276894&auswahloperation=abruftabelleAuspraegungAuswaehlen&auswahlverzeichnis=ordnungsstruktur&auswahlziel=werteabruf&code=41261-0003&auswahltext=&werteabruf=starten)
+using Python and to find interesting aspects and potential questions that could be explored using this data.
 
 If you are only interested in the results, please jump to the section [Damaged Logging](#damaged-logging).
 
@@ -59,8 +61,8 @@ from damagedlogginganalyzer.WoodOracle import WoodOracle
 from damagedlogginganalyzer.Oracle import Oracle
 ```
 
-The classes `CSVAnalyzer`, `Plotter`, `Oracle` are independent of this project and can be used for other projects.
-Moreover, the classes `DamagedLoggingAnalyzer` and `WoodOracle` are specific for this project / data set.
+The classes `CSVAnalyzer` and `Oracle` are independent of this project and can be used for other projects.
+Moreover, the classes `DamagedLoggingAnalyzer`, `WoodOracle` and `Plotter` are specific for this project / data set.
 
 # Damaged Logging
 
@@ -104,12 +106,28 @@ How might these harvesting activities due to damages impact the ecological balan
 **Question**:
 How has the damage-caused wood harvesting changed over the years? 
 
-I created individual plots for the total volume of wood harvested due to different reasons (drought, wind/storm, snow, insects, miscellaneous, total) over the years for different types of wood species.
-And additionally, I created combined plots for the different types of wood species.
-**Note:** In the following, I will only show the combined plots for the different types of wood species. The other plots can be found in the [plots](https://github.com/HokageM/DamagedLoggingAnalyzer/tree/main/plots) directory or can be generated with the following command:
+I created individual plots for the total volume of wood harvested due to different reasons (drought, wind/storm, snow, insects, miscellaneous, total) and different owners over the years for different types of wood species.
+Here are some examples (the other plots can be found in the [plots](https://github.com/HokageM/DamagedLoggingAnalyzer/tree/main/plots)/specie/reason/owner/plot.png directory or can be generated with the following command:
 
 ```bash
-damaged_logg_analyzer data/DamagedLoggingWoodFixTable.csv --plot-temporal-dependencies --out-dir path/to/output
+damaged_logg_analyzer data/DamagedLoggingWoodFixTable.csv --plot-temporal-dependencies-all --out-dir plots
+```
+
+Deaths of Oak and Red Oak caused by insects and owned by `Insgesamt` over the years in Germany:
+
+<img src="plots/Eiche_und_Roteiche/Insekten/Insgesamt/plot.png" width="500">
+
+
+Deaths of Pine caused by insects and owned by `Insgesamt` over the years in Germany:
+
+<img src="plots/Kiefer_und_L�rche/Insekten/Insgesamt/plot.png" width="500">
+
+
+Additionally, I created combined plots for the different types of wood species.
+**Note:** In the following, I will only show the combined plots for the different types of wood species and owned by `Insgesamt`. The other plots can be found in the [plots](https://github.com/HokageM/DamagedLoggingAnalyzer/tree/main/plots)/specie/all_reasons/owner/plot.png directory or can be generated with the following command:
+
+```bash
+damaged_logg_analyzer data/DamagedLoggingWoodFixTable.csv --plot-reason-dependencies --out-dir plots
 ```
 
 Total Oak and Red Oak deaths over the years in Germany:
@@ -128,10 +146,13 @@ Total Pine deaths over the years in Germany:
 
 <img src="plots/Kiefer_und_L�rche/all_reasons/Insgesamt/plot.png" width="500">
 
-**Warning**: The dataset value for 'Insgesamt' seams incorrect.
 Total tree deaths over the years in Germany:
 
 <img src="plots/Insgesamt/all_reasons/Insgesamt/plot.png" width="500">
+
+All in all, one can see that the deaths of all species due to the most reasons depend on the year and fluctuate between high and low values.
+However, the total deaths of all species are increasing over the years especially for the reasons `Sonstiges` (miscellaneous), which could be caused by fires, diseases, or other reasons.
+The definition of `Sonstiges` is not clear in the dataset.
 
 **Question**:
 Are there increasing trends in certain types of damage like drought or insects, possibly linked to climate change?
@@ -142,7 +163,7 @@ Please look in [Prediction_2024](https://github.com/HokageM/DamagedLoggingAnalyz
 The deaths of all species due to wind/storm depends on the year and fluctuate between high and low values.
 But one can see a very high number of deaths due to wind/storm in the year 2006 and 2018.
 
-The deaths of all species due to "Sonsitges" (miscellaneous) can be modeled quit good with a polynomial function and are increasing over the years.
+The deaths of all species due to `Sonstiges` (miscellaneous) can be modeled quit good with a polynomial function and are increasing over the years.
 
 The total deaths of all species are increasing over the years.
 
@@ -198,7 +219,7 @@ How do different types of forests compare in their vulnerability to specific dam
 This is also solved by the following command:
 
 ```bash
-damaged_logg_analyzer data/DamagedLoggingWoodFixTable.csv --calculate-most-dangerous-reasons
+damaged_logg_analyzer data/DamagedLoggingWoodFixTable.csv --calculate-most-dangerous-reasons --plot-temporal-dependencies-all
 ```
 
 Analyzing the plots show that `Buche und sonstiges Laubholz` and `Eiche und Roteiche` have fewer deaths in any reason 
@@ -211,8 +232,22 @@ compared to `Buche und sonstiges Laubholz` and `Eiche und Roteiche`.
 Are there noticeable differences in wood harvesting due to damage across different forest ownership types 
 (e.g., state-owned vs. privately-owned forests)? This could reflect different management practices and their effectiveness.
 
+This is solved by the following command:
 
+```bash
+damaged_logg_analyzer data/DamagedLoggingWoodFixTable.csv --plot-owner-dependencies
+```
 
+Analyzing the plots show that the deaths due to different reasons are similar for the different owners. So it seems that the owner does not have a big impact on the death count.
+Here are some examples and the other plots can be found in the [plots](https://github.com/HokageM/DamagedLoggingAnalyzer/tree/main/plots)/specie/reason/all_owners/plot.png:
+
+Deaths of Oak and Red Oak caused by insects and owned by `Insgesamt` over the years in Germany:
+
+<img src="plots/Eiche_und_Roteiche/Insekten/all_owners/plot.png" width="500">
+
+Deaths of Pine caused by insects and owned by `Insgesamt` over the years in Germany:
+
+<img src="plots/Kiefer_und_L�rche/Insekten/all_owners/plot.png" width="500">
 
 # Contact Information
 

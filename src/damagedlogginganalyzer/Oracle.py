@@ -16,8 +16,8 @@ class Oracle:
     def k_fold_cross_validation(self, x, y):
         """
         Performs k-fold cross validation to find the best degree for the polynomial regression model.
-        :param x:
-        :param y:
+        :param x: Features
+        :param y: Labels
         :return:
         """
         degrees = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
@@ -57,11 +57,11 @@ class Oracle:
     def polynomial_regression(x_train, y_train, x_test, y_test, degree):
         """
         Trains a polynomial regression model with the given degree.
-        :param x_train:
-        :param y_train:
-        :param x_test:
-        :param y_test:
-        :param degree:
+        :param x_train: Training data
+        :param y_train: Training labels
+        :param x_test: Test data
+        :param y_test: Test labels
+        :param degree: Degree of the polynomial
         :return:
         """
         poly_features = PolynomialFeatures(degree=degree)

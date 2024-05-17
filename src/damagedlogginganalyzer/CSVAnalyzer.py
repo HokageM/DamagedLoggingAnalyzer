@@ -20,7 +20,7 @@ class CSVAnalyzer:
     def read_in_csv(self, csv_file):
         """
         Read in a CSV file and saves it into self.__csv.
-        :param csv_file:
+        :param csv_file: Path to the CSV file.
         :return:
         """
         csv = Path(csv_file)
@@ -32,7 +32,7 @@ class CSVAnalyzer:
     def get_dict_with_df_same_key_value(self, key=""):
         """
         Returns a dictionary, which contains all rows of the csv with the same key value as data frame.
-        :param key:
+        :param key: The key value to group the data frames.
         :return:
         """
         try:

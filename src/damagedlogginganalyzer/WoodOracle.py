@@ -14,11 +14,11 @@ class WoodOracle(Oracle):
     def predict_wood_logging(self, x, y, species, reason, origin):
         """
         Predicts the amount of damaged wood in 2024.
-        :param x:
-        :param y:
-        :param species:
-        :param reason:
-        :param origin:
+        :param x: Input data
+        :param y: Output data
+        :param species: Species of the tree
+        :param reason: Reason for the damage
+        :param origin: Origin/ owner of the tree
         :return:
         """
         model, degree, train_score = self.k_fold_cross_validation(x, y)

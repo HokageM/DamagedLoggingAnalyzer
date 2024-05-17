@@ -127,9 +127,9 @@ class DamagedLoggingAnalyzer(CSVAnalyzer):
     def collect_temporal_dependencies(self, species="", reason="", origin=""):
         """
         Collects the temporal dependencies for a specific species, reason and origin.
-        :param species:
-        :param reason:
-        :param origin:
+        :param species: Species of the tree
+        :param reason: Reason for the damaged wood
+        :param origin: Origin/ owner of the tree
         :return:
         """
         amounts = np.zeros(self.__year_dict.keys().__len__())

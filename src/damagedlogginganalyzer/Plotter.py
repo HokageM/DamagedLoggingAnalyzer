@@ -15,7 +15,7 @@ class Plotter:
     def set_x_axis(self, x):
         """
         Sets the x-axis for the plot.
-        :param x:
+        :param x: X-axis for the plots
         :return:
         """
         self.__x = x
@@ -23,9 +23,9 @@ class Plotter:
     def preprocess_metadata(self, species, reason, origin):
         """
         Preprocesses the metadata for the plot.
-        :param species:
-        :param reason:
-        :param origin:
+        :param species: Species of the tree
+        :param reason: Reason for the damage
+        :param origin: Origin/ owner of the tree
         :return:
         """
         species = species.replace("/", "_")
@@ -39,10 +39,10 @@ class Plotter:
     def finish_temporal_plot(self, species, reason, origin, dir=Path()):
         """
         Finishes the temporal plot by adding labels, title, grid, saving the plot and closing it.
-        :param species:
-        :param reason:
-        :param origin:
-        :param dir:
+        :param species: Species of the tree
+        :param reason: Reason for the damage
+        :param origin: Origin/ owner of the tree
+        :param dir: Save plot in output_directory/dir
         :return:
         """
         plt.xlabel("Jahr")
@@ -62,14 +62,14 @@ class Plotter:
     def plot_predictions(self, y, x_predict, train_score, value_2024, degree, species, reason, origin):
         """
         Plots the predictions for the damaged wood in 2024.
-        :param y:
-        :param x_predict:
-        :param train_score:
-        :param value_2024:
-        :param degree:
-        :param species:
-        :param reason:
-        :param origin:
+        :param y: Y values
+        :param x_predict: Predicted X values
+        :param train_score: Training score
+        :param value_2024: Value in 2024
+        :param degree: Degree of the polynomial
+        :param species: Species of the tree
+        :param reason: Reason for the damage
+        :param origin: Origin/ owner of the tree
         :return:
         """
         reason = reason.removeprefix("Einschlagsursache: ")
@@ -95,9 +95,9 @@ class Plotter:
     def plot_temporal_dependencies_from_species_reason_dict(self, species_dict, species="", origin=""):
         """
         Plots the temporal dependencies for a specific species, origin and all reasons combined.
-        :param species_dict:
-        :param species:
-        :param origin:
+        :param species_dict: Dictionary with species and owner and their data points
+        :param species: Species of the tree
+        :param origin: Origin/ owner of the tree
         :return:
         """
         plt.figure(figsize=(12, 10))
@@ -117,9 +117,9 @@ class Plotter:
     def plot_temporal_dependencies_from_species_owner_dict(self, species_dict, species="", reason=""):
         """
         Plots the temporal dependencies for a specific species, reason and all owners combined.
-        :param species_dict:
-        :param species:
-        :param reason:
+        :param species_dict: Dictionary with species and owner and their data points
+        :param species: Species of the tree
+        :param reason: Reason for the damage
         :return:
         """
         plt.figure(figsize=(18, 10))
@@ -137,10 +137,10 @@ class Plotter:
     def plot_temporal_dependencies(self, amounts, species="", reason="", origin=""):
         """
         Plots the temporal dependencies for a specific species, reason and origin.
-        :param amounts:
-        :param species:
-        :param reason:
-        :param origin:
+        :param amounts: Amounts of damaged wood
+        :param species: Species of the tree
+        :param reason: Reason for the damage
+        :param origin: Origin/ owner of the tree
         :return:
         """
         plt.figure(figsize=(14, 12))
