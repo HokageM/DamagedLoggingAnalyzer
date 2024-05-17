@@ -32,29 +32,31 @@ def parse_args(args):
         help="Calculates the most dangerous reasons for each specie.",
     )
     parser.add_argument(
-        "--plot-temporal-dependencies-specie-reason",
+        "--plot-reason-dependencies",
         action="store_true",
-        help="Create plots for temporal dependencies for each specie and reason combination owned by Insgesamt."
-        "And will also create a combined plot for each specie and all reasons combinations.",
+        help="Create combined plots for each specie and owner combinations for all reasons. Plots will be saved in: "
+        "output-path/Specie/all_reasons/Owner/plot.png.",
     )
     parser.add_argument(
-        "--plot-temporal-dependencies-specie-owner",
+        "--plot-owner-dependencies",
         action="store_true",
-        help="Create plots for temporal dependencies for each specie and owner combination caused by Insgesamt."
-        "And will also create a combined plot for each specie and all owners combinations.",
+        help="Create combined plots for each specie and reason combinations for all owners. Plots will be saved in: "
+        "output-path/Specie/Reason/all_owners/plot.png.",
     )
     parser.add_argument(
         "--plot-temporal-dependencies-all",
         action="store_true",
-        help="Create plots for temporal dependencies for each specie, reason and owner combination."
-        "Note: use --plot-temporal-dependencies-specie-owner and --plot-temporal-dependencies-specie-reason to "
-        "create the combined plots.",
+        help="Create plots for temporal dependencies for each specie, reason and owner combination. "
+        "Plots will be saved in: output-path/Specie/Reason/Owner/plot.png. Note: use --plot-owner-dependencies "
+        "and --plot-reason-dependencies.",
     )
     parser.add_argument(
         "--predict",
         action="store_true",
         help="Estimates a death count function using Polynomial Regression with K-Fold Cross Validation to predict "
-        "the numbers for the year 2024.",
+        "the numbers for the year 2024. "
+        "Plots will be saved in: output-path/Prediction_2024/Specie/Reasons/Owner/plot.png.Note: will created a "
+        "new model for every specie, reason and owner combination.",
     )
     parser.add_argument(
         "--out-dir",
@@ -72,8 +74,8 @@ def main(args):
     with DamagedLoggingAnalyzer(args.out_dir) as analyzer:
         analyzer.read_in_csv(args.csv)
         analyzer.analyze(
-            plot_temporal_dependencies_specie_reason=args.plot_temporal_dependencies_specie_reason,
-            plot_temporal_dependencies_specie_owner=args.plot_temporal_dependencies_specie_owner,
+            plot_reason_dependencies=args.plot_reason_dependencies,
+            plot_owner_dependencies=args.plot_owner_dependencies,
             plot_temporal_dependencies_all=args.plot_temporal_dependencies_all,
             predict_temporal_dependencies=args.predict,
             calculate_most_dangerous_reasons=args.calculate_most_dangerous_reasons,

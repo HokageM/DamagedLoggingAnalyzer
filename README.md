@@ -21,8 +21,8 @@ pip install .
 ## Commandline
 
 ```bash
-usage: damaged_logg_analyzer [-h] [--version] [--calculate-most-dangerous-reasons] [--plot-temporal-dependencies-specie-reason] [--plot-temporal-dependencies-specie-owner]
-                             [--plot-temporal-dependencies-all] [--predict] [--out-dir OUT_DIR]
+usage: damaged_logg_analyzer [-h] [--version] [--calculate-most-dangerous-reasons] [--plot-reason-dependencies] [--plot-owner-dependencies] [--plot-temporal-dependencies-all] [--predict]
+                             [--out-dir OUT_DIR]
                              CSV
 
 Analyzes the data about damaged wood from the CSV file.
@@ -35,18 +35,16 @@ options:
   --version             show program's version number and exit
   --calculate-most-dangerous-reasons
                         Calculates the most dangerous reasons for each specie.
-  --plot-temporal-dependencies-specie-reason
-                        Create plots for temporal dependencies for each specie and reason combination owned by Insgesamt.And will also create a combined plot for each specie and all reasons
-                        combinations.
-  --plot-temporal-dependencies-specie-owner
-                        Create plots for temporal dependencies for each specie and owner combination caused by Insgesamt.And will also create a combined plot for each specie and all owners
-                        combinations.
+  --plot-reason-dependencies
+                        Create combined plots for each specie and owner combinations for all reasons. Plots will be saved in: output-path/Specie/all_reasons/Owner/plot.png.
+  --plot-owner-dependencies
+                        Create combined plots for each specie and reason combinations for all owners. Plots will be saved in: output-path/Specie/Reason/all_owners/plot.png.
   --plot-temporal-dependencies-all
-                        Create plots for temporal dependencies for each specie, reason and owner combination.Note: use --plot-temporal-dependencies-specie-owner and --plot-temporal-
-                        dependencies-specie-reason to create the combined plots.
-  --predict             Estimates a death count function using Polynomial Regression with K-Fold Cross Validation to predict the numbers for the year 2024.
+                        Create plots for temporal dependencies for each specie, reason and owner combination. Plots will be saved in: output-path/Specie/Reason/Owner/plot.png. Note: use --plot-
+                        owner-dependencies and --plot-reason-dependencies.
+  --predict             Estimates a death count function using Polynomial Regression with K-Fold Cross Validation to predict the numbers for the year 2024. Plots will be saved in: output-
+                        path/Prediction_2024/Specie/Reasons/Owner/plot.png.Note: will created a new model for every specie, reason and owner combination.
   --out-dir OUT_DIR     Output directory for the plots.
-
 ```
 
 ## Library

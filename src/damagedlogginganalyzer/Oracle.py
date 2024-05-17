@@ -20,7 +20,7 @@ class Oracle:
         :param y:
         :return:
         """
-        degrees = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        degrees = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 
         kf = KFold(n_splits=self.k_splits, shuffle=True, random_state=0)
         a_train_errors = []
@@ -50,7 +50,7 @@ class Oracle:
         print(f"Best degree: {best_degree}")
 
         best_model, train_score, _ = self.polynomial_regression(x, y, [], [], best_degree)
-        print(f"Train R² score (1 is best) for the best model: {train_score}")
+        print(f"Train R² score (1 is best) for the best model: {train_score}\n")
         return best_model, best_degree, train_score
 
     @staticmethod
